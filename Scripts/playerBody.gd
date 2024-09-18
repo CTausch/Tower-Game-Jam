@@ -17,4 +17,3 @@ func _physics_process(_delta: float) -> void:
 		currentLine = currentLine.below
 		position = currentLine.points[1]
 		print(position)
-		

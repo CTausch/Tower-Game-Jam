@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmxmlpb6rqogr"]
+[gd_scene load_steps=11 format=3 uid="uid://dmxmlpb6rqogr"]
 
 [ext_resource type="Script" path="res://Scripts/playerBody.gd" id="1_4cdm4"]
 [ext_resource type="Script" path="res://Scripts/LineBase.gd" id="2_myr6w"]
+[ext_resource type="Texture2D" uid="uid://dr4vk3s1orynb" path="res://icon.svg" id="2_of3qp"]
 [ext_resource type="Script" path="res://Scripts/LineBorder.gd" id="3_vnnpw"]
 [ext_resource type="Script" path="res://Scripts/Line1.gd" id="4_iiewm"]
 [ext_resource type="Script" path="res://Scripts/Line2.gd" id="5_fqbtw"]
@@ -12,6 +13,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x0jmc"]
 
 [node name="Node2D" type="Node2D"]
+position = Vector2(583, 598)
 
 [node name="player" type="Area2D" parent="." node_paths=PackedStringArray("lineBaseReference")]
 script = ExtResource("1_4cdm4")
@@ -20,11 +22,16 @@ lineBaseReference = NodePath("../LineBase")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
 shape = SubResource("RectangleShape2D_x0jmc")
 
-[node name="LineBase" type="Node2D" parent="." node_paths=PackedStringArray("defaultLine", "lowerBound", "upperBound")]
+[node name="Sprite2D" type="Sprite2D" parent="player"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_of3qp")
+
+[node name="LineBase" type="Node2D" parent="." node_paths=PackedStringArray("defaultLine", "lowerBound", "upperBound", "character")]
 script = ExtResource("2_myr6w")
-defaultLine = NodePath("Line1")
+defaultLine = NodePath("Line2")
 lowerBound = NodePath("Line0")
 upperBound = NodePath("Line6")
+character = NodePath("../player")
 
 [node name="Line0" type="Line2D" parent="LineBase"]
 script = ExtResource("3_vnnpw")

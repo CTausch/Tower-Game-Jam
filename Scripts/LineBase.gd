@@ -5,6 +5,7 @@ const LINE_LENGTH = 300.0
 @export var defaultLine : Line2D
 @export var lowerBound : Line2D
 @export var upperBound : Line2D
+@export var character : Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,7 +18,7 @@ func _ready() -> void:
 		line[0].y -= HEIGHT_DIFF
 		line[1].y -= HEIGHT_DIFF
 		currentLine = currentLine.above
-		
+	character.position = character.currentLine.points[1]
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
