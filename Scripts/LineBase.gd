@@ -6,7 +6,12 @@ const LINE_LENGTH = 300.0
 @export var lowerBound : Line2D
 @export var upperBound : Line2D
 @export var character : Area2D
-
+@export var line1 : Line2D
+@export var line2 : Line2D
+@export var line3 : Line2D
+@export var line4 : Line2D
+@export var line5 : Line2D
+@onready var enemy = preload("res://enemyBase.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var currentLine = defaultLine
@@ -23,4 +28,23 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_just_pressed("ui_right"):
+		var enemy_temp = enemy.instantiate()
+		var randomNum = randi()%5+1
+		print(randomNum)
+		if randomNum == 1:
+			line1.add_child(enemy_temp)
+			enemy_temp.position = line1.points[0]
+		if randomNum == 2:
+			line2.add_child(enemy_temp)
+			enemy_temp.position = line2.points[0]
+		if randomNum == 3:
+			line3.add_child(enemy_temp)
+			enemy_temp.position = line3.points[0]
+		if randomNum == 4:
+			line4.add_child(enemy_temp)
+			enemy_temp.position = line4.points[0]
+		if randomNum == 5:
+			line5.add_child(enemy_temp)
+			enemy_temp.position = line5.points[0]
+		print("okay")

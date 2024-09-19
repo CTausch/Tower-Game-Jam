@@ -15,6 +15,12 @@ run/main_scene="res://screenTemplate.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[global_group]
+
+Player=""
+Bullet=""
+Enemy=""
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

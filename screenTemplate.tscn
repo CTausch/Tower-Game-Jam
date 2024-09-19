@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmxmlpb6rqogr"]
+[gd_scene load_steps=12 format=3 uid="uid://dmxmlpb6rqogr"]
 
 [ext_resource type="Script" path="res://Scripts/playerBody.gd" id="1_4cdm4"]
 [ext_resource type="Script" path="res://Scripts/LineBase.gd" id="2_myr6w"]
@@ -9,31 +9,38 @@
 [ext_resource type="Script" path="res://Scripts/Line3.gd" id="6_d1n4k"]
 [ext_resource type="Script" path="res://Scripts/Line4.gd" id="7_8wahr"]
 [ext_resource type="Script" path="res://Scripts/Line5.gd" id="8_ywcl3"]
+[ext_resource type="Script" path="res://label.gd" id="10_l6sfr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x0jmc"]
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(583, 598)
 
-[node name="player" type="Area2D" parent="." node_paths=PackedStringArray("lineBaseReference")]
+[node name="player" type="Area2D" parent="." node_paths=PackedStringArray("lineBaseReference") groups=["Player"]]
 script = ExtResource("1_4cdm4")
 lineBaseReference = NodePath("../LineBase")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player" groups=["Player"]]
 shape = SubResource("RectangleShape2D_x0jmc")
 
 [node name="Sprite2D" type="Sprite2D" parent="player"]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_of3qp")
 
-[node name="LineBase" type="Node2D" parent="." node_paths=PackedStringArray("defaultLine", "lowerBound", "upperBound", "character")]
+[node name="LineBase" type="Node2D" parent="." node_paths=PackedStringArray("defaultLine", "lowerBound", "upperBound", "character", "line1", "line2", "line3", "line4", "line5")]
 script = ExtResource("2_myr6w")
 defaultLine = NodePath("Line2")
 lowerBound = NodePath("Line0")
 upperBound = NodePath("Line6")
 character = NodePath("../player")
+line1 = NodePath("Line1")
+line2 = NodePath("Line2")
+line3 = NodePath("Line3")
+line4 = NodePath("Line4")
+line5 = NodePath("Line5")
 
 [node name="Line0" type="Line2D" parent="LineBase"]
+position = Vector2(-1, -1)
 script = ExtResource("3_vnnpw")
 
 [node name="Line1" type="Line2D" parent="LineBase" node_paths=PackedStringArray("below", "above")]
@@ -78,3 +85,23 @@ above = NodePath("../Line6")
 
 [node name="Line6" type="Line2D" parent="LineBase"]
 script = ExtResource("3_vnnpw")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -583.0
+offset_top = -597.0
+offset_right = -451.0
+offset_bottom = -557.0
+
+[node name="Label" type="Label" parent="Control" node_paths=PackedStringArray("character")]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 26.0
+offset_right = 209.0
+offset_bottom = 49.0
+text = "BulletCount = somthin'"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("10_l6sfr")
+character = NodePath("../../player")
