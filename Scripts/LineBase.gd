@@ -19,6 +19,8 @@ var queueCurrent
 var spawnTime = 0.0
 var readyToSpawn = true
 var timeSinceLastSpawn = 0.0
+var lineHolder
+var nextHolder
 
 #Enemy spawning variables - Wave 1
 const WAVE_ONE = {"waveTime" : 90.0, "tankCount" : 5, "gunnerCount" : 5, "bomberCount" : 5}
@@ -51,15 +53,6 @@ func _ready() -> void:
 	var bombersNeeded = WAVE_ONE["bomberCount"]
 	var enemiesNeededArray = [tanksNeeded, gunnersNeeded, bombersNeeded]
 	enemyQueueHead = enemy.instantiate()
-	#I believe the enemy_base script is zero indexed for lines and enemy types
-	#Also change this once other enemies are created
-	if(enemyQueueHead.enemyType == 0): #Tank
-		enemyQueueHead.set_script(load("res://TankEnemy.gd"))
-	if(enemyQueueHead.enemyType == 1): #Gunner
-		enemyQueueHead.set_script(load("res://TankEnemy.gd"))
-	if(enemyQueueHead.enemyType == 2): #Bomber
-		enemyQueueHead.set_script(load("res://TankEnemy.gd"))
-		
 	enemyQueueHead.enemyType = randi()%enemiesNeededArray.size()
 	enemyQueueHead.line = randi()%5
 	#print(enemyQueueHead.enemyType)
@@ -70,14 +63,6 @@ func _ready() -> void:
 	while(enemiesNeededArray.size() != 0):
 		queueCurrent.nextEnemy = enemy.instantiate()
 		queueCurrent = queueCurrent.nextEnemy
-		#I believe the enemy_base script is zero indexed for lines and enemy types
-		#Also change this once other enemies are created
-		if(queueCurrent.enemyType == 0): #Tank
-			queueCurrent.set_script(load("res://TankEnemy.gd"))
-		if(queueCurrent.enemyType == 1): #Gunner
-			queueCurrent.set_script(load("res://TankEnemy.gd"))
-		if(queueCurrent.enemyType == 2): #Bomber
-			queueCurrent.set_script(load("res://TankEnemy.gd"))
 		queueCurrent.enemyType = randi()%enemiesNeededArray.size()
 		queueCurrent.line = randi()%5
 		enemiesNeededArray[queueCurrent.enemyType] -= 1
@@ -101,32 +86,43 @@ func _process(delta: float) -> void:
 			print("Ready to Spawn")
 			readyToSpawn = true
 			timeSinceLastSpawn = 0.0
-			queueCurrent = queueCurrent.nextEnemy
 			
 		if(readyToSpawn):
-			if queueCurrent.line == 0:
+			lineHolder = queueCurrent.line
+			nextHolder = queueCurrent.nextEnemy
+			#I believe the enemy_base script is zero indexed for lines and enemy types
+			#Also change this once other enemies are created
+			if(queueCurrent.enemyType == 0): #Tank
+				queueCurrent.set_script(load("res://TankEnemy.gd"))
+			if(queueCurrent.enemyType == 1): #Gunner
+				queueCurrent.set_script(load("res://TankEnemy.gd"))
+			if(queueCurrent.enemyType == 2): #Bomber
+				queueCurrent.set_script(load("res://TankEnemy.gd"))
+				
+			if lineHolder == 0:
 				line1.add_child(queueCurrent)
 				queueCurrent.position = line1.points[0]
 				queueCurrent.position.x = line1.points[0].x-400
-			if queueCurrent.line == 1:
+			if lineHolder == 1:
 				line2.add_child(queueCurrent)
 				queueCurrent.position = line2.points[0]
 				queueCurrent.position.x = line2.points[0].x-400
-			if queueCurrent.line == 2:
-				line3.add_child(enemyQueueHead)
+			if lineHolder == 2:
+				line3.add_child(queueCurrent)
 				queueCurrent.position = line3.points[0]
 				queueCurrent.position.x = line3.points[0].x-400
-			if queueCurrent.line == 3:
+			if lineHolder == 3:
 				line4.add_child(queueCurrent)
 				queueCurrent.position = line4.points[0]
 				queueCurrent.position.x = line4.points[0].x-400
-			if queueCurrent.line == 4:
+			if lineHolder == 4:
 				line5.add_child(queueCurrent)
 				queueCurrent.position = line5.points[0]
 				queueCurrent.position.x = line5.points[0].x-400
 				
 			print("Spawned")
 			readyToSpawn = false
+			queueCurrent = nextHolder
 	
 	
 	#if Input.is_action_just_pressed("ui_right"):
