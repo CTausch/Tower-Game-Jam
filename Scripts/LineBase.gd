@@ -30,21 +30,27 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_right"):
 		var enemy_temp = enemy.instantiate()
+		enemy_temp.set_script(load("res://TankEnemy.gd"))
 		var randomNum = randi()%5+1
 		print(randomNum)
 		if randomNum == 1:
 			line1.add_child(enemy_temp)
 			enemy_temp.position = line1.points[0]
+			enemy_temp.position.x = line1.points[0].x-400
 		if randomNum == 2:
 			line2.add_child(enemy_temp)
 			enemy_temp.position = line2.points[0]
+			enemy_temp.position.x = line2.points[0].x-400
 		if randomNum == 3:
 			line3.add_child(enemy_temp)
 			enemy_temp.position = line3.points[0]
+			enemy_temp.position.x = line3.points[0].x-400
 		if randomNum == 4:
 			line4.add_child(enemy_temp)
 			enemy_temp.position = line4.points[0]
+			enemy_temp.position.x = line4.points[0].x-400
 		if randomNum == 5:
 			line5.add_child(enemy_temp)
 			enemy_temp.position = line5.points[0]
+			enemy_temp.position.x = line5.points[0].x-400
 		print("okay")

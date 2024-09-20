@@ -1,5 +1,9 @@
 extends Area2D
 
+
+var lifetime = 15
+var canDie = true
+var enemySpeed = 20
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -10,6 +14,8 @@ func _process(delta: float) -> void:
 	pass
 
 
+
+
 func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group("Bullet"):
+	if area.is_in_group("Bullet") and canDie == true:
 		queue_free()

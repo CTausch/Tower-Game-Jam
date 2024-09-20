@@ -9,12 +9,11 @@
 [ext_resource type="Script" path="res://Scripts/Line3.gd" id="6_d1n4k"]
 [ext_resource type="Script" path="res://Scripts/Line4.gd" id="7_8wahr"]
 [ext_resource type="Script" path="res://Scripts/Line5.gd" id="8_ywcl3"]
-[ext_resource type="Script" path="res://label.gd" id="10_l6sfr"]
+[ext_resource type="Script" path="res://Scripts/label.gd" id="10_l6sfr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x0jmc"]
 
 [node name="Node2D" type="Node2D"]
-position = Vector2(583, 598)
 
 [node name="player" type="Area2D" parent="." node_paths=PackedStringArray("lineBaseReference") groups=["Player"]]
 script = ExtResource("1_4cdm4")
@@ -105,3 +104,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("10_l6sfr")
 character = NodePath("../../player")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(1.00823, 1)
+offset = Vector2(0, -260)
