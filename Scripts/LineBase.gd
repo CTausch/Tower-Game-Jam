@@ -93,11 +93,11 @@ func _process(delta: float) -> void:
 			#I believe the enemy_base script is zero indexed for lines and enemy types
 			#Also change this once other enemies are created
 			if(queueCurrent.enemyType == 0): #Tank
-				queueCurrent.set_script(load("res://Scripts/GunEnemy.gd"))
+				queueCurrent.set_script(load("res://Scripts/BombEnemy.gd"))
 			elif(queueCurrent.enemyType == 1): #Gunner
-				queueCurrent.set_script(load("res://Scripts/GunEnemy.gd"))
+				queueCurrent.set_script(load("res://Scripts/BombEnemy.gd"))
 			elif(queueCurrent.enemyType == 2): #Bomber
-				queueCurrent.set_script(load("res://Scripts/GunEnemy.gd"))
+				queueCurrent.set_script(load("res://Scripts/BombEnemy.gd"))
 				
 			if lineHolder == 0:
 				line1.add_child(queueCurrent)

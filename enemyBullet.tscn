@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dr4vk3s1orynb" path="res://icon.svg" id="2_n2vck"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cim58"]
-size = Vector2(89.75, 18)
+size = Vector2(17.4375, 3)
 
 [node name="EnemyBullet" type="Area2D" groups=["EnemyBullet"]]
 script = ExtResource("1_awmj4")
@@ -13,7 +13,8 @@ script = ExtResource("1_awmj4")
 shape = SubResource("RectangleShape2D_cim58")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.640625, 0.132813)
+position = Vector2(0, -2.98023e-08)
+scale = Vector2(0.117187, 0.0214844)
 texture = ExtResource("2_n2vck")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

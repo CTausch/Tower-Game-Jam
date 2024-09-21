@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dmxmlpb6rqogr"]
+[gd_scene load_steps=13 format=3 uid="uid://dmxmlpb6rqogr"]
 
 [ext_resource type="Script" path="res://Scripts/playerBody.gd" id="1_4cdm4"]
 [ext_resource type="Script" path="res://Scripts/LineBase.gd" id="2_myr6w"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/Line4.gd" id="7_8wahr"]
 [ext_resource type="Script" path="res://Scripts/Line5.gd" id="8_ywcl3"]
 [ext_resource type="Script" path="res://Scripts/label.gd" id="10_l6sfr"]
+[ext_resource type="Script" path="res://label_2.gd" id="11_wjmbj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x0jmc"]
 
@@ -105,6 +106,17 @@ vertical_alignment = 1
 script = ExtResource("10_l6sfr")
 character = NodePath("../../player")
 
+[node name="Label2" type="Label" parent="Control" node_paths=PackedStringArray("character")]
+layout_mode = 0
+offset_left = 936.0
+offset_top = 35.0
+offset_right = 1011.0
+offset_bottom = 60.0
+script = ExtResource("11_wjmbj")
+character = NodePath("../../player")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(1.00823, 1)
 offset = Vector2(0, -260)
+
+[connection signal="area_entered" from="player" to="player" method="_on_area_entered"]
