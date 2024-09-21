@@ -2,7 +2,7 @@ extends Area2D
 
 var lifetime = 15
 var canDie = true
-var enemySpeed = 20
+var enemySpeed = 200
 var enemyType
 var line
 var nextEnemy

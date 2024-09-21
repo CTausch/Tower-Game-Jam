@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://51fsn378w77o"]
+
+[ext_resource type="Script" path="res://Scripts/EnemyBullet.gd" id="1_awmj4"]
+[ext_resource type="Texture2D" uid="uid://dr4vk3s1orynb" path="res://icon.svg" id="2_n2vck"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cim58"]
+size = Vector2(89.75, 18)
+
+[node name="EnemyBullet" type="Area2D" groups=["EnemyBullet"]]
+script = ExtResource("1_awmj4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cim58")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.640625, 0.132813)
+texture = ExtResource("2_n2vck")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

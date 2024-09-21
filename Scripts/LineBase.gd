@@ -93,28 +93,32 @@ func _process(delta: float) -> void:
 			#I believe the enemy_base script is zero indexed for lines and enemy types
 			#Also change this once other enemies are created
 			if(queueCurrent.enemyType == 0): #Tank
-				queueCurrent.set_script(load("res://TankEnemy.gd"))
-			if(queueCurrent.enemyType == 1): #Gunner
-				queueCurrent.set_script(load("res://TankEnemy.gd"))
-			if(queueCurrent.enemyType == 2): #Bomber
-				queueCurrent.set_script(load("res://TankEnemy.gd"))
+				queueCurrent.set_script(load("res://Scripts/GunEnemy.gd"))
+			elif(queueCurrent.enemyType == 1): #Gunner
+				queueCurrent.set_script(load("res://Scripts/GunEnemy.gd"))
+			elif(queueCurrent.enemyType == 2): #Bomber
+				queueCurrent.set_script(load("res://Scripts/GunEnemy.gd"))
 				
 			if lineHolder == 0:
 				line1.add_child(queueCurrent)
 				queueCurrent.position = line1.points[0]
 				queueCurrent.position.x = line1.points[0].x-400
+				
 			if lineHolder == 1:
 				line2.add_child(queueCurrent)
 				queueCurrent.position = line2.points[0]
 				queueCurrent.position.x = line2.points[0].x-400
+				
 			if lineHolder == 2:
 				line3.add_child(queueCurrent)
 				queueCurrent.position = line3.points[0]
 				queueCurrent.position.x = line3.points[0].x-400
+				
 			if lineHolder == 3:
 				line4.add_child(queueCurrent)
 				queueCurrent.position = line4.points[0]
 				queueCurrent.position.x = line4.points[0].x-400
+				
 			if lineHolder == 4:
 				line5.add_child(queueCurrent)
 				queueCurrent.position = line5.points[0]
