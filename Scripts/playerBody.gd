@@ -18,14 +18,15 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_left") and bulletCount > 0:
+		bulletCount = bulletCount - 1
 		var bullet_temp = bullet.instantiate()
 		currentLine.add_child(bullet_temp)
+		bullet_temp.position = currentLine.points[1]
+		#print(currentLine)
 		bullet_temp.position = currentLine.points[1]
 		playerThrow.playing = true
 		await playerThrow.finished
 		playerThrow.playing = false
-		#print(currentLine)
-		bulletCount = bulletCount - 1
 	
 	if Input.is_action_just_pressed("ui_up") and currentLine.above != lineBaseReference.upperBound:
 		currentLine = currentLine.above
