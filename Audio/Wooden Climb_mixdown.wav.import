@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bnv1fcmaa0yx"
+path="res://.godot/imported/Wooden Climb_mixdown.wav-806fd8f74f65774db725b238a5e15871.sample"
+
+[deps]
+
+source_file="res://Audio/Wooden Climb_mixdown.wav"
+dest_files=["res://.godot/imported/Wooden Climb_mixdown.wav-806fd8f74f65774db725b238a5e15871.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

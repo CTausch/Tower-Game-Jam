@@ -4,6 +4,7 @@ extends "res://Scripts/enemy_base.gd"
 
 @onready var parent = get_parent()
 @onready var character = get_node("../../../player")
+@onready var bombSpawn = get_node("bombSpawnSE")
 
 var InitTime
 # Called when the node enters the scene tree for the first time.
@@ -11,6 +12,9 @@ func _ready() -> void:
 	canDie = true
 	enemySpeed = 50
 	InitTime = Time.get_unix_time_from_system()
+	bombSpawn.playing = true
+	await bombSpawn.finished
+	bombSpawn.playing = false
 
 
 

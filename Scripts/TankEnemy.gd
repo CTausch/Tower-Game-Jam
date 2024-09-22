@@ -3,6 +3,7 @@ extends "res://Scripts/enemy_base.gd"
 
 @onready var parent = get_parent()
 @onready var character = get_node("../../../player")
+@onready var tankSpawn = get_node("tankSpawnSE")
 
 var direction = 1
 var InitTime
@@ -11,6 +12,9 @@ func _ready() -> void:
 	canDie = false
 	enemySpeed = 200
 	InitTime = Time.get_unix_time_from_system()
+	tankSpawn.playing = true
+	await tankSpawn.finished
+	tankSpawn.playing = false
 
 
 
