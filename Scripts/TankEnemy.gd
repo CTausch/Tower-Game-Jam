@@ -11,6 +11,7 @@ var InitTime
 func _ready() -> void:
 	canDie = false
 	enemySpeed = 200
+	lifetime = 10
 	InitTime = Time.get_unix_time_from_system()
 	tankSpawn.playing = true
 	await tankSpawn.finished

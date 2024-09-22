@@ -33,7 +33,7 @@ const ENEMY_NAMES = {0 : "Tank", 1 : "Gun", 2 : "Bomb"} #This isn't used, but is
 var enemy_index = [0, 1, 2]
 
 #Enemy spawning variables - Wave 1
-const WAVE_ONE = {"waveTime" : 90.0, "tankCount" : 3, "gunnerCount" : 3, "bomberCount" : 3}
+const WAVE_ONE = {"waveTime" : 70.0, "tankCount" : 5, "gunnerCount" : 3, "bomberCount" : 4}
 #Enemy spawning variables - Wave 2
 const WAVE_TWO = {"waveTime" : 105.0, "tankCount" : 8, "gunnerCount" : 5, "bomberCount" : 5}
 #Enemy spawning variables - Wave 3
@@ -121,7 +121,7 @@ func waveSetUp(waveNum: int ) -> void:
 	enemy_index = [0, 1, 2]
 	enemyQueueTail = queueCurrent
 	enemiesRemaining = wave["tankCount"] + wave["gunnerCount"] + wave["bomberCount"]
-	spawnTime = wave["waveTime"] / enemiesRemaining*0.1
+	spawnTime = wave["waveTime"] / enemiesRemaining*0.25
 	character.bulletCount = wave["bomberCount"] * 2
 	bombsRemaining = wave["bomberCount"]
 	queueCurrent = enemyQueueHead
