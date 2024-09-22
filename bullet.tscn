@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bf08gscvmx0k5"]
 
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_b5ick"]
-[ext_resource type="Texture2D" uid="uid://dr4vk3s1orynb" path="res://icon.svg" id="1_lk8kq"]
+[ext_resource type="Texture2D" uid="uid://600ltb5oqy81" path="res://Sprites/playerProjectile.png" id="2_t68lq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7lm0r"]
-size = Vector2(13, 4.5)
+size = Vector2(58.25, 24.625)
 
 [node name="Bullet" type="Area2D" groups=["Bullet"]]
 script = ExtResource("1_b5ick")
@@ -13,8 +13,8 @@ script = ExtResource("1_b5ick")
 shape = SubResource("RectangleShape2D_7lm0r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 1.90735e-06)
-scale = Vector2(-0.141595, 0.0243592)
-texture = ExtResource("1_lk8kq")
+position = Vector2(0, 5.96046e-08)
+scale = Vector2(-0.098862, 0.057619)
+texture = ExtResource("2_t68lq")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

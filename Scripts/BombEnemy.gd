@@ -22,4 +22,4 @@ func _process(delta: float) -> void:
 		queue_free() #eventually change this to lose game
 		TransitionScreen.transition()
 		await TransitionScreen.onTransitionFinish
-		get_tree().change_scene_to_file("res://TitleScreen.tscn")
+		get_tree().call_deferred("change_scene_to_file", "res://TitleScreen.tscn")

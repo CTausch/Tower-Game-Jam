@@ -11,4 +11,5 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_select"):
 		TransitionScreen.transition()
 		await TransitionScreen.onTransitionFinish
-		get_tree().change_scene_to_file("res://screenTemplate.tscn")
+		GlobalVariables.waveNumber = 0
+		get_tree().call_deferred("change_scene_to_file", "res://screenTemplate.tscn")

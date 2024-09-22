@@ -73,6 +73,8 @@ func _process(delta: float) -> void:
 			sendNextWave = true
 			#print("next wave")
 			#GlobalVariables.waveNumber += 1
+	else:
+		get_tree().call_deferred("change_scene_to_file", "res://TitleScreen.tscn")
 	
 
 #Sets up enemy queue. Takes an int to indicate what wave should be set up.
@@ -142,10 +144,15 @@ func spawnEnemies(delta: float) -> bool:
 			#Also change this once other enemies are created
 			if(queueCurrent.enemyType == 0): #Tank
 				queueCurrent.set_script(load("res://Scripts/TankEnemy.gd"))
+				queueCurrent.find_child("Sprite2D").texture = load("res://Sprites/tank.png")
+				queueCurrent.find_child("Sprite2D").scale.x = 0.07
+				queueCurrent.find_child("Sprite2D").scale.y = 0.07
 			elif(queueCurrent.enemyType == 1): #Gunner
 				queueCurrent.set_script(load("res://Scripts/GunEnemy.gd"))
+				queueCurrent.find_child("Sprite2D").texture = load("res://Sprites/bird1.png")
 			elif(queueCurrent.enemyType == 2): #Bomber
 				queueCurrent.set_script(load("res://Scripts/BombEnemy.gd"))
+				queueCurrent.find_child("Sprite2D").texture = load("res://Sprites/bomb.png")
 				bombsRemaining -= 1
 			enemiesRemaining -= 1
 			if lineHolder == 0:

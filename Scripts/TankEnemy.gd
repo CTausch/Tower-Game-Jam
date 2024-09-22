@@ -29,5 +29,5 @@ func _on_area_entered(area: Area2D) -> void:
 		character.isAlive = false #change to lose game
 		TransitionScreen.transition()
 		await TransitionScreen.onTransitionFinish
-		get_tree().change_scene_to_file("res://TitleScreen.tscn")
+		get_tree().call_deferred("change_scene_to_file", "res://TitleScreen.tscn")
 	

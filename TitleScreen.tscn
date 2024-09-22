@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://wvr4agx6iail"]
+[gd_scene load_steps=5 format=3 uid="uid://wvr4agx6iail"]
 
 [ext_resource type="Script" path="res://title_screen.gd" id="1_5mxba"]
+[ext_resource type="Texture2D" uid="uid://bqqs3xpdso3fv" path="res://Sprites/bird1.png" id="2_cvmyi"]
+[ext_resource type="Texture2D" uid="uid://dvm8urc73kw8q" path="res://Sprites/bomb.png" id="3_qygot"]
+[ext_resource type="Texture2D" uid="uid://cri2hwbpsmtlf" path="res://Sprites/tank.png" id="4_dqucq"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_5mxba")
@@ -11,3 +14,65 @@ offset_top = 420.0
 offset_right = 688.0
 offset_bottom = 456.0
 text = "Press Space to Play!"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 467.0
+offset_top = 106.0
+offset_right = 754.0
+offset_bottom = 216.0
+text = "      Up Arrow: Moves character up
+Down Arrow: Moves Character down
+        Left Arrow: Throw projectile"
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 151.0
+offset_top = 419.0
+offset_right = 438.0
+offset_bottom = 529.0
+text = "      <-- This thing is not invincible!
+             Will shoot projectiles at you
+             from range, and you lose if
+             you are hit!"
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 148.0
+offset_top = 221.0
+offset_right = 435.0
+offset_bottom = 331.0
+text = "      <-- This thing is not invincible!
+             Will slowly move towards
+             the tower, and if it hits the 
+             tower you lose!"
+
+[node name="Label5" type="Label" parent="."]
+offset_left = 137.0
+offset_top = 56.0
+offset_right = 424.0
+offset_bottom = 166.0
+text = "      <-- This thing is invincible!
+            Moves back and forth at a 
+            high speed, and you lose if
+            it touches you!"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(92, 458)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_cvmyi")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(82, 263)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_qygot")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(80, 92)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_dqucq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -24.0
+offset_top = -28.0
+offset_right = 1227.0
+offset_bottom = 693.0
+color = Color(0.427451, 0.686275, 1, 1)

@@ -13,7 +13,6 @@ func _on_animation_finished(anim_name):
 	if anim_name == "fade_to_black":
 		animationPlayer.play("fade_to_normal")
 		onTransitionFinish.emit()
-		await animationPlayer.animation_finished
 	elif anim_name == "fade_to_normal":
 		colorRect.visible = false
 

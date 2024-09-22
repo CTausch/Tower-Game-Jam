@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://51fsn378w77o"]
 
 [ext_resource type="Script" path="res://Scripts/EnemyBullet.gd" id="1_awmj4"]
-[ext_resource type="Texture2D" uid="uid://dr4vk3s1orynb" path="res://icon.svg" id="2_n2vck"]
+[ext_resource type="Texture2D" uid="uid://b5kip7pq74yds" path="res://Sprites/enemyProjectile.png" id="2_j83dp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cim58"]
-size = Vector2(17.4375, 3)
+size = Vector2(37.7188, 11.5)
 
 [node name="EnemyBullet" type="Area2D" groups=["EnemyBullet"]]
 script = ExtResource("1_awmj4")
@@ -13,8 +13,8 @@ script = ExtResource("1_awmj4")
 shape = SubResource("RectangleShape2D_cim58")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -2.98023e-08)
-scale = Vector2(0.117187, 0.0214844)
-texture = ExtResource("2_n2vck")
+position = Vector2(9.53674e-07, -9.53674e-07)
+scale = Vector2(0.0488328, 0.0410854)
+texture = ExtResource("2_j83dp")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
