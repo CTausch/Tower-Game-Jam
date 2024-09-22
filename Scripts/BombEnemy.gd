@@ -20,3 +20,4 @@ func _process(delta: float) -> void:
 	if position.x >= parent.points[1].x:
 		character.isAlive = false
 		queue_free() #eventually change this to lose game
+		get_tree().change_scene_to_file("res://TitleScreen.tscn")
