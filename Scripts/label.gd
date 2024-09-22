@@ -13,5 +13,5 @@ func _process(delta: float) -> void:
 	textToDisplay = "Ammo: " + str(character.bulletCount) + "\n"
 	textToDisplay = textToDisplay + "Bombs Remaining: " + str(lineBase.bombsRemaining) + "\n"
 	textToDisplay = textToDisplay + "Enemies Remaining: " + str(lineBase.enemiesRemaining) + "\n"
-	textToDisplay = textToDisplay + "Wave: " + str(lineBase.waveNumber)
+	textToDisplay = textToDisplay + "Wave: " + str(GlobalVariables.waveNumber)
 	text = textToDisplay

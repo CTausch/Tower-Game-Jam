@@ -22,7 +22,7 @@ var timeSinceLastSpawn = 0.0
 var lineHolder
 var nextHolder
 var sendNextWave = true
-@export var waveNumber = 1
+@export var waveNumber = GlobalVariables.waveNumber
 @export var bombsRemaining = 0
 @export var enemiesRemaining = 0
 
@@ -33,7 +33,7 @@ const ENEMY_NAMES = {0 : "Tank", 1 : "Gun", 2 : "Bomb"} #This isn't used, but is
 var enemy_index = [0, 1, 2]
 
 #Enemy spawning variables - Wave 1
-const WAVE_ONE = {"waveTime" : 90.0, "tankCount" : 5, "gunnerCount" : 5, "bomberCount" : 5}
+const WAVE_ONE = {"waveTime" : 90.0, "tankCount" : 3, "gunnerCount" : 3, "bomberCount" : 3}
 #Enemy spawning variables - Wave 2
 const WAVE_TWO = {"waveTime" : 105.0, "tankCount" : 8, "gunnerCount" : 5, "bomberCount" : 5}
 #Enemy spawning variables - Wave 3
@@ -64,13 +64,15 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if(waveNumber < 4): #Basically an end condition. We can add something else late
+	if(GlobalVariables.waveNumber < 4): #Basically an end condition. We can add something else late
 		if(sendNextWave):
-			waveSetUp(waveNumber)
+			GlobalVariables.waveNumber += 1
+			waveSetUp(GlobalVariables.waveNumber)
 			sendNextWave = false
-		if(spawnEnemies(delta)):
+		if(await spawnEnemies(delta)):
 			sendNextWave = true
-			++waveNumber
+			#print("next wave")
+			#GlobalVariables.waveNumber += 1
 	
 
 #Sets up enemy queue. Takes an int to indicate what wave should be set up.
@@ -117,7 +119,7 @@ func waveSetUp(waveNum: int ) -> void:
 	enemy_index = [0, 1, 2]
 	enemyQueueTail = queueCurrent
 	enemiesRemaining = wave["tankCount"] + wave["gunnerCount"] + wave["bomberCount"]
-	spawnTime = wave["waveTime"] / enemiesRemaining
+	spawnTime = wave["waveTime"] / enemiesRemaining*0.1
 	character.bulletCount = wave["bomberCount"] * 2
 	bombsRemaining = wave["bomberCount"]
 	queueCurrent = enemyQueueHead
@@ -175,9 +177,15 @@ func spawnEnemies(delta: float) -> bool:
 			readyToSpawn = false
 			queueCurrent = nextHolder
 	#Check if wave is over
-	if(queueCurrent == null &&
-	find_children("enemyBase").size() == 0):
+	if(queueCurrent == null and
+	line1.get_child_count() == 0 
+	and line2.get_child_count() == 0
+	and line3.get_child_count() == 0
+	and line4.get_child_count() == 0
+	and line5.get_child_count() == 0):
 		#print("Next wave")
+		TransitionScreen.transition()
+		await TransitionScreen.onTransitionFinish
 		return true
 	return false
 	
