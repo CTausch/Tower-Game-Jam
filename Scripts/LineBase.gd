@@ -70,7 +70,7 @@ func _process(delta: float) -> void:
 			sendNextWave = false
 		if(spawnEnemies(delta)):
 			sendNextWave = true
-			++waveNumber
+			waveNumber += 1
 	
 
 #Sets up enemy queue. Takes an int to indicate what wave should be set up.
