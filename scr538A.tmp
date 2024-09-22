@@ -1,0 +1,127 @@
+[gd_scene load_steps=13 format=3 uid="uid://dmxmlpb6rqogr"]
+
+[ext_resource type="Script" path="res://Scripts/playerBody.gd" id="1_4cdm4"]
+[ext_resource type="Script" path="res://Scripts/LineBase.gd" id="2_myr6w"]
+[ext_resource type="Texture2D" uid="uid://dr4vk3s1orynb" path="res://icon.svg" id="2_of3qp"]
+[ext_resource type="Script" path="res://Scripts/LineBorder.gd" id="3_vnnpw"]
+[ext_resource type="Script" path="res://Scripts/Line1.gd" id="4_iiewm"]
+[ext_resource type="Script" path="res://Scripts/Line2.gd" id="5_fqbtw"]
+[ext_resource type="Script" path="res://Scripts/Line3.gd" id="6_d1n4k"]
+[ext_resource type="Script" path="res://Scripts/Line4.gd" id="7_8wahr"]
+[ext_resource type="Script" path="res://Scripts/Line5.gd" id="8_ywcl3"]
+[ext_resource type="Script" path="res://Scripts/label.gd" id="10_l6sfr"]
+[ext_resource type="Script" path="res://label_2.gd" id="11_wjmbj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x0jmc"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="player" type="Area2D" parent="." node_paths=PackedStringArray("lineBaseReference") groups=["Player"]]
+script = ExtResource("1_4cdm4")
+lineBaseReference = NodePath("../LineBase")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player" groups=["Player"]]
+shape = SubResource("RectangleShape2D_x0jmc")
+
+[node name="Sprite2D" type="Sprite2D" parent="player"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_of3qp")
+
+[node name="LineBase" type="Node2D" parent="." node_paths=PackedStringArray("defaultLine", "lowerBound", "upperBound", "character", "line1", "line2", "line3", "line4", "line5")]
+script = ExtResource("2_myr6w")
+defaultLine = NodePath("Line2")
+lowerBound = NodePath("Line0")
+upperBound = NodePath("Line6")
+character = NodePath("../player")
+line1 = NodePath("Line1")
+line2 = NodePath("Line2")
+line3 = NodePath("Line3")
+line4 = NodePath("Line4")
+line5 = NodePath("Line5")
+waveNumber = null
+bombsRemaining = null
+enemiesRemaining = null
+
+[node name="Line0" type="Line2D" parent="LineBase"]
+position = Vector2(-1, -1)
+script = ExtResource("3_vnnpw")
+
+[node name="Line1" type="Line2D" parent="LineBase" node_paths=PackedStringArray("below", "above")]
+points = PackedVector2Array(-150, 0, 150, 0)
+width = 2.0
+default_color = Color(0.231373, 0.243137, 1, 1)
+script = ExtResource("4_iiewm")
+below = NodePath("../Line0")
+above = NodePath("../Line2")
+
+[node name="Line2" type="Line2D" parent="LineBase" node_paths=PackedStringArray("below", "above")]
+points = PackedVector2Array(-150, 0, 150, 0)
+width = 2.0
+default_color = Color(0.231373, 0.243137, 1, 1)
+script = ExtResource("5_fqbtw")
+below = NodePath("../Line1")
+above = NodePath("../Line3")
+
+[node name="Line3" type="Line2D" parent="LineBase" node_paths=PackedStringArray("below", "above")]
+points = PackedVector2Array(-150, 0, 150, 0)
+width = 2.0
+default_color = Color(0.231373, 0.243137, 1, 1)
+script = ExtResource("6_d1n4k")
+below = NodePath("../Line2")
+above = NodePath("../Line4")
+
+[node name="Line4" type="Line2D" parent="LineBase" node_paths=PackedStringArray("below", "above")]
+points = PackedVector2Array(-150, 0, 150, 0)
+width = 2.0
+default_color = Color(0.231373, 0.243137, 1, 1)
+script = ExtResource("7_8wahr")
+below = NodePath("../Line3")
+above = NodePath("../Line5")
+
+[node name="Line5" type="Line2D" parent="LineBase" node_paths=PackedStringArray("below", "above")]
+points = PackedVector2Array(-150, 0, 150, 0)
+width = 2.0
+default_color = Color(0.231373, 0.243137, 1, 1)
+script = ExtResource("8_ywcl3")
+below = NodePath("../Line4")
+above = NodePath("../Line6")
+
+[node name="Line6" type="Line2D" parent="LineBase"]
+script = ExtResource("3_vnnpw")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -583.0
+offset_top = -597.0
+offset_right = -451.0
+offset_bottom = -557.0
+
+[node name="Label" type="Label" parent="Control" node_paths=PackedStringArray("character", "lineBase")]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 26.0
+offset_right = 209.0
+offset_bottom = 49.0
+text = "BulletCount = somthin'"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("10_l6sfr")
+character = NodePath("../../player")
+lineBase = NodePath("../../LineBase")
+
+[node name="Label2" type="Label" parent="Control" node_paths=PackedStringArray("character")]
+layout_mode = 0
+offset_left = 936.0
+offset_top = 35.0
+offset_right = 1011.0
+offset_bottom = 60.0
+text = "bombCount = "
+script = ExtResource("11_wjmbj")
+character = NodePath("../../player")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(1.00823, 1)
+offset = Vector2(0, -260)
+
+[connection signal="area_entered" from="player" to="player" method="_on_area_entered"]
