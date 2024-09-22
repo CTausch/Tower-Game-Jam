@@ -23,14 +23,14 @@ func _process(delta: float) -> void:
 	if ((Time.get_unix_time_from_system() - InitTime) <= lifetime):
 		position.x += enemySpeed * delta
 		if position.x >= parent.points[0].x:
-			enemySpeed = 0
+			enemySpeed = 5
 	else:
 		enemySpeed = -100
 		position.x += enemySpeed * delta
 	if position.x < -600 and Time.get_unix_time_from_system() - InitTime >= lifetime:
 			queue_free()
 			
-	if enemySpeed == 0 and Time.get_unix_time_from_system() - InitTime >= shootDelayTimer:
+	if enemySpeed == 5 and Time.get_unix_time_from_system() - InitTime >= shootDelayTimer:
 		shootDelayTimer += shootDelay
 		var bullet_temp = bullet.instantiate()
 		parent.add_child(bullet_temp)
