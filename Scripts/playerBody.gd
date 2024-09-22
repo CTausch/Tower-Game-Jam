@@ -5,10 +5,12 @@ extends Area2D
 var currentLine
 var isAlive
 @export var  bulletCount = 20
+@export var playerClimb : AudioStreamPlayer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	currentLine = lineBaseReference.defaultLine
 	isAlive = true
+	playerClimb.playing = false
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_left") and bulletCount > 0:
@@ -21,12 +23,19 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_up") and currentLine.above != lineBaseReference.upperBound:
 		currentLine = currentLine.above
 		position = currentLine.points[1]
+		playerClimb.playing = true
+		await playerClimb.finished
+		playerClimb.playing = false
+		
 		#print(position)
 		#print(currentLine)
 		
 	if Input.is_action_just_pressed("ui_down") and currentLine.below != lineBaseReference.lowerBound:
 		currentLine = currentLine.below
 		position = currentLine.points[1]
+		playerClimb.playing = true
+		await playerClimb.finished
+		playerClimb.playing = false
 		#print(position)
 
 

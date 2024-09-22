@@ -12,6 +12,7 @@ func _ready() -> void:
 func _on_animation_finished(anim_name):
 	if anim_name == "fade_to_black":
 		animationPlayer.play("fade_to_normal")
+		await animationPlayer.animation_finished
 		onTransitionFinish.emit()
 		await animationPlayer.animation_finished
 	elif anim_name == "fade_to_normal":

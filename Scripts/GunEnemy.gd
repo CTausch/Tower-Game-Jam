@@ -3,6 +3,8 @@ extends "res://Scripts/enemy_base.gd"
 
 @onready var parent = get_parent()
 @onready var bullet = preload("res://enemyBullet.tscn")
+@onready var gunSpawn = get_node("gunSpawnSE")
+@onready var gunShoot = get_node("gunShootSE")
 var direction = 1
 var InitTime
 var shootDelay = 2
@@ -14,6 +16,10 @@ func _ready() -> void:
 	enemySpeed = 100
 	InitTime = Time.get_unix_time_from_system()
 	shootDelayTimer = shootDelay
+	gunSpawn.playing = true
+	await gunSpawn.finished
+	gunSpawn.playing = false
+	gunShoot.playing = false
 	
 
 
@@ -35,5 +41,8 @@ func _process(delta: float) -> void:
 		var bullet_temp = bullet.instantiate()
 		parent.add_child(bullet_temp)
 		bullet_temp.position = parent.points[0]
+		gunShoot.playing = true
+		await gunShoot.finished
+		gunShoot.playing = false
 		#fire bullet
 	#print(Time.get_unix_time_from_system() - InitTime)

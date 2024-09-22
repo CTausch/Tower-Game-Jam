@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dmxmlpb6rqogr"]
+[gd_scene load_steps=14 format=3 uid="uid://dmxmlpb6rqogr"]
 
 [ext_resource type="Script" path="res://Scripts/playerBody.gd" id="1_4cdm4"]
 [ext_resource type="Script" path="res://Scripts/LineBase.gd" id="2_myr6w"]
 [ext_resource type="Texture2D" uid="uid://dr4vk3s1orynb" path="res://icon.svg" id="2_of3qp"]
+[ext_resource type="AudioStream" uid="uid://bnv1fcmaa0yx" path="res://Audio/Wooden Climb_mixdown.wav" id="3_l1el3"]
 [ext_resource type="Script" path="res://Scripts/LineBorder.gd" id="3_vnnpw"]
 [ext_resource type="Script" path="res://Scripts/Line1.gd" id="4_iiewm"]
 [ext_resource type="Script" path="res://Scripts/Line2.gd" id="5_fqbtw"]
@@ -16,9 +17,10 @@
 
 [node name="Node2D" type="Node2D"]
 
-[node name="player" type="Area2D" parent="." node_paths=PackedStringArray("lineBaseReference") groups=["Player"]]
+[node name="player" type="Area2D" parent="." node_paths=PackedStringArray("lineBaseReference", "playerClimb") groups=["Player"]]
 script = ExtResource("1_4cdm4")
 lineBaseReference = NodePath("../LineBase")
+playerClimb = NodePath("playerClimb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player" groups=["Player"]]
 shape = SubResource("RectangleShape2D_x0jmc")
@@ -26,6 +28,9 @@ shape = SubResource("RectangleShape2D_x0jmc")
 [node name="Sprite2D" type="Sprite2D" parent="player"]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_of3qp")
+
+[node name="playerClimb" type="AudioStreamPlayer" parent="player"]
+stream = ExtResource("3_l1el3")
 
 [node name="LineBase" type="Node2D" parent="." node_paths=PackedStringArray("defaultLine", "lowerBound", "upperBound", "character", "line1", "line2", "line3", "line4", "line5")]
 script = ExtResource("2_myr6w")
