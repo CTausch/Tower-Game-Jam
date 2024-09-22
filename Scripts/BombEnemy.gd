@@ -3,7 +3,7 @@ extends "res://Scripts/enemy_base.gd"
 
 
 @onready var parent = get_parent()
-@onready var character = get_node("../../../player")
+#@onready var character = get_node("../../../player")
 @onready var bombSpawn = get_node("bombSpawnSE")
 
 var InitTime
@@ -22,8 +22,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	position.x += enemySpeed * delta
 	if position.x >= parent.points[1].x:
-		character.isAlive = false
-		queue_free() #eventually change this to lose game
+		#character.isAlive = false
+		#queue_free() #eventually change this to lose game
 		TransitionScreen.transition()
 		await TransitionScreen.onTransitionFinish
 		get_tree().call_deferred("change_scene_to_file", "res://TitleScreen.tscn")
+		queue_free()
