@@ -36,4 +36,4 @@ func _process(delta: float) -> void:
 		parent.add_child(bullet_temp)
 		bullet_temp.position = parent.points[0]
 		#fire bullet
-	print(Time.get_unix_time_from_system() - InitTime)
+	#print(Time.get_unix_time_from_system() - InitTime)

@@ -15,19 +15,19 @@ func _physics_process(_delta: float) -> void:
 		var bullet_temp = bullet.instantiate()
 		currentLine.add_child(bullet_temp)
 		bullet_temp.position = currentLine.points[1]
-		print(currentLine)
+		#print(currentLine)
 		bulletCount = bulletCount - 1
 	
 	if Input.is_action_just_pressed("ui_up") and currentLine.above != lineBaseReference.upperBound:
 		currentLine = currentLine.above
 		position = currentLine.points[1]
-		print(position)
-		print(currentLine)
+		#print(position)
+		#print(currentLine)
 		
 	if Input.is_action_just_pressed("ui_down") and currentLine.below != lineBaseReference.lowerBound:
 		currentLine = currentLine.below
 		position = currentLine.points[1]
-		print(position)
+		#print(position)
 
 
 func _on_area_entered(area: Area2D) -> void:

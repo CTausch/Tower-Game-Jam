@@ -94,7 +94,7 @@ offset_top = -597.0
 offset_right = -451.0
 offset_bottom = -557.0
 
-[node name="Label" type="Label" parent="Control" node_paths=PackedStringArray("character")]
+[node name="Label" type="Label" parent="Control" node_paths=PackedStringArray("character", "lineBase")]
 layout_mode = 0
 offset_left = 32.0
 offset_top = 26.0
@@ -105,6 +105,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("10_l6sfr")
 character = NodePath("../../player")
+lineBase = NodePath("../../LineBase")
 
 [node name="Label2" type="Label" parent="Control" node_paths=PackedStringArray("character")]
 layout_mode = 0
@@ -112,6 +113,7 @@ offset_left = 936.0
 offset_top = 35.0
 offset_right = 1011.0
 offset_bottom = 60.0
+text = "bombCount = "
 script = ExtResource("11_wjmbj")
 character = NodePath("../../player")
 

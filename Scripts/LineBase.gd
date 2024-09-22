@@ -21,9 +21,23 @@ var readyToSpawn = true
 var timeSinceLastSpawn = 0.0
 var lineHolder
 var nextHolder
+var sendNextWave = true
+@export var waveNumber = 1
+@export var bombsRemaining = 0
+@export var enemiesRemaining = 0
+
+#This is really weird, but it's probably the easiest way to fix the spawning problem.
+#Basically the spawning broke when I refactored to add scripts during the actual spawning process.
+#This is intended to fix that while still limiting the number of times random numbers must be generated
+const ENEMY_NAMES = {0 : "Tank", 1 : "Gun", 2 : "Bomb"} #This isn't used, but is good reference for now
+var enemy_index = [0, 1, 2]
 
 #Enemy spawning variables - Wave 1
 const WAVE_ONE = {"waveTime" : 90.0, "tankCount" : 5, "gunnerCount" : 5, "bomberCount" : 5}
+#Enemy spawning variables - Wave 2
+const WAVE_TWO = {"waveTime" : 105.0, "tankCount" : 8, "gunnerCount" : 5, "bomberCount" : 5}
+#Enemy spawning variables - Wave 3
+const WAVE_THREE = {"waveTime" : 120.0, "tankCount" : 4, "gunnerCount" : 10, "bomberCount" : 6}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -45,12 +59,36 @@ func _ready() -> void:
 	lines.append(line4)
 	lines.append(line5)
 	
+	
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if(waveNumber < 4): #Basically an end condition. We can add something else late
+		if(sendNextWave):
+			waveSetUp(waveNumber)
+			sendNextWave = false
+		if(spawnEnemies(delta)):
+			sendNextWave = true
+			++waveNumber
+	
+
+#Sets up enemy queue. Takes an int to indicate what wave should be set up.
+func waveSetUp(waveNum: int ) -> void:
 	#To add new stages, possibly create a function that contains all this with a passed in wave number
 	#Call it in process when a new nave is needed
 	#Wave dictionaries could be in an array
-	var tanksNeeded = WAVE_ONE["tankCount"]
-	var gunnersNeeded = WAVE_ONE["gunnerCount"]
-	var bombersNeeded = WAVE_ONE["bomberCount"]
+	#Bad solution. If this is ever expanded on, this would need to be changed
+	var wave
+	if(waveNum == 1):
+		wave = WAVE_ONE
+	elif(waveNum == 2):
+		wave = WAVE_TWO
+	else:
+		wave = WAVE_THREE
+	var tanksNeeded = wave["tankCount"]
+	var gunnersNeeded = wave["gunnerCount"]
+	var bombersNeeded = wave["bomberCount"]
 	var enemiesNeededArray = [tanksNeeded, gunnersNeeded, bombersNeeded]
 	enemyQueueHead = enemy.instantiate()
 	enemyQueueHead.enemyType = randi()%enemiesNeededArray.size()
@@ -60,75 +98,93 @@ func _ready() -> void:
 	enemiesNeededArray[enemyQueueHead.enemyType] -= 1
 	#print(enemiesNeededArray[enemyQueueHead.enemyType])
 	queueCurrent = enemyQueueHead
-	while(enemiesNeededArray.size() != 0):
+	#while(enemiesNeededArray.size() != 0):
+		#queueCurrent.nextEnemy = enemy.instantiate()
+		#queueCurrent = queueCurrent.nextEnemy
+		#queueCurrent.enemyType = randi()%enemiesNeededArray.size()
+		#queueCurrent.line = randi()%5
+		#enemiesNeededArray[queueCurrent.enemyType] -= 1
+		#if(enemiesNeededArray[queueCurrent.enemyType] == 0):
+			#enemiesNeededArray.remove_at(queueCurrent.enemyType)
+	while(enemy_index.size() != 0):
 		queueCurrent.nextEnemy = enemy.instantiate()
 		queueCurrent = queueCurrent.nextEnemy
-		queueCurrent.enemyType = randi()%enemiesNeededArray.size()
+		queueCurrent.enemyType = enemy_index[randi()%enemy_index.size()]
 		queueCurrent.line = randi()%5
 		enemiesNeededArray[queueCurrent.enemyType] -= 1
 		if(enemiesNeededArray[queueCurrent.enemyType] == 0):
-			enemiesNeededArray.remove_at(queueCurrent.enemyType)
+			enemy_index.remove_at(enemy_index.find(queueCurrent.enemyType))
+	enemy_index = [0, 1, 2]
 	enemyQueueTail = queueCurrent
-	spawnTime = WAVE_ONE["waveTime"] / (WAVE_ONE["tankCount"] + WAVE_ONE["gunnerCount"] + WAVE_ONE["bomberCount"])
+	enemiesRemaining = wave["tankCount"] + wave["gunnerCount"] + wave["bomberCount"]
+	spawnTime = wave["waveTime"] / enemiesRemaining
+	character.bulletCount = wave["bomberCount"] * 2
+	bombsRemaining = wave["bomberCount"]
 	queueCurrent = enemyQueueHead
 	
-	#Test Code
-	#while(queueCurrent != null):
-		#print(queueCurrent.enemyType)
-		#queueCurrent = queueCurrent.nextEnemy
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if(queueCurrent != null): #Needs to be changed for multiple waves
+#Generates enemies based on enemy queue. Updates display to show number of bombers left to spawn
+#Takes in delta from _process to calculate time passed since last spawn. 
+#Returns true when lines have no enemyBase children and queueCurrent is null. Wave is over
+func spawnEnemies(delta: float) -> bool:
+	if(queueCurrent != null): #Safety. Stall until all enemies are gone
 		timeSinceLastSpawn += delta
 		if(timeSinceLastSpawn >= spawnTime):
-			print("Ready to Spawn")
+			#print("Ready to Spawn")
 			readyToSpawn = true
 			timeSinceLastSpawn = 0.0
-			
+		#Spawn enemies if enough time has elapsed
 		if(readyToSpawn):
 			lineHolder = queueCurrent.line
 			nextHolder = queueCurrent.nextEnemy
 			#I believe the enemy_base script is zero indexed for lines and enemy types
 			#Also change this once other enemies are created
 			if(queueCurrent.enemyType == 0): #Tank
-				queueCurrent.set_script(load("res://Scripts/BombEnemy.gd"))
+				queueCurrent.set_script(load("res://Scripts/TankEnemy.gd"))
 			elif(queueCurrent.enemyType == 1): #Gunner
-				queueCurrent.set_script(load("res://Scripts/BombEnemy.gd"))
+				queueCurrent.set_script(load("res://Scripts/GunEnemy.gd"))
 			elif(queueCurrent.enemyType == 2): #Bomber
 				queueCurrent.set_script(load("res://Scripts/BombEnemy.gd"))
-				
+				bombsRemaining -= 1
+			enemiesRemaining -= 1
 			if lineHolder == 0:
 				line1.add_child(queueCurrent)
 				queueCurrent.position = line1.points[0]
 				queueCurrent.position.x = line1.points[0].x-400
-				
+					
 			if lineHolder == 1:
 				line2.add_child(queueCurrent)
 				queueCurrent.position = line2.points[0]
 				queueCurrent.position.x = line2.points[0].x-400
-				
+					
 			if lineHolder == 2:
 				line3.add_child(queueCurrent)
 				queueCurrent.position = line3.points[0]
 				queueCurrent.position.x = line3.points[0].x-400
-				
+					
 			if lineHolder == 3:
 				line4.add_child(queueCurrent)
 				queueCurrent.position = line4.points[0]
 				queueCurrent.position.x = line4.points[0].x-400
-				
+					
 			if lineHolder == 4:
 				line5.add_child(queueCurrent)
 				queueCurrent.position = line5.points[0]
 				queueCurrent.position.x = line5.points[0].x-400
-				
-			print("Spawned")
+					
+			#print("Spawned")
 			readyToSpawn = false
 			queueCurrent = nextHolder
+	#Check if wave is over
+	if(queueCurrent == null &&
+	find_children("enemyBase").size() == 0):
+		#print("Next wave")
+		return true
+	return false
 	
-	
+	#Test Code
+	#while(queueCurrent != null):
+		#print(queueCurrent.enemyType)
+		#queueCurrent = queueCurrent.nextEnemy
 	#if Input.is_action_just_pressed("ui_right"):
 		#var enemy_temp = enemy.instantiate()
 		#enemy_temp.set_script(load("res://TankEnemy.gd"))
